@@ -13,12 +13,12 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "astro": "^5.12.8",
+    "astro": "^5.14.6",
     "astro-loader-obsidian": "^0.9.1",
     "astro-spaceship": "^0.9.8",
     "sharp": "^0.32.5",
     "spaceship-monolith": "^0.9.8",
-    "varlock": "^0.0.11"
+    "varlock": "^0.0.15"
   },
   "devDependencies": {
     "patch-package": "^8.0.1"
