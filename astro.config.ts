@@ -7,5 +7,8 @@ import websiteConfig from 'astro-spaceship/config';
 export default defineConfig({
   integrations: [
     astroSpaceship(websiteConfig)
-  ]
+  ],
+  devToolbar: {
+    enabled: false
+  }
 });
