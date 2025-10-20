@@ -13,6 +13,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "alpinejs": "^3.15.0",
     "astro": "^5.14.6",
     "astro-loader-obsidian": "^0.9.1",
     "astro-spaceship": "^0.9.8",
@@ -21,6 +22,7 @@
     "varlock": "^0.0.15"
   },
   "devDependencies": {
+    "@types/alpinejs": "^3.13.11",
     "patch-package": "^8.0.1"
   }
 }

@@ -1,0 +1,38 @@
+/* ============================================
+   首页主题配置（示例文件）
+   如需分开配置，重命名为 theme.landing.css
+   ============================================ */
+
+.landing-page {
+  /* 首页特殊背景 */
+  --landing-stars-opacity: 0.8;
+  --landing-clouds-opacity: 0.5;
+  --landing-overlay-color: rgba(0, 0, 0, 0.4);
+  
+  /* 首页文字 */
+  --landing-title-color: var(--theme-text-primary);
+  --landing-title-size: 3.5rem;
+  --landing-subtitle-color: var(--theme-text-secondary);
+  --landing-subtitle-size: 1.25rem;
+  
+  /* 首页按钮 */
+  --landing-button-bg: var(--theme-primary);
+  --landing-button-hover: var(--theme-secondary);
+  --landing-button-text: var(--theme-text-inverse);
+}
+
+html.light .landing-page {
+  --landing-overlay-color: rgba(255, 255, 255, 0.7);
+}
+
+/* 首页特殊元素样式 */
+.landing-page .title {
+  color: var(--landing-title-color);
+  font-size: var(--landing-title-size);
+}
+
+.landing-page .subtitle {
+  color: var(--landing-subtitle-color);
+  font-size: var(--landing-subtitle-size);
+}
+

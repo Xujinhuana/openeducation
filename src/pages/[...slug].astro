@@ -1,6 +1,7 @@
 ---
 import { getStaticPathsFactory, type Props } from "astro-spaceship/components/Article/utils/get-static-paths.ts";
 import Page from 'astro-spaceship/components/Article/Page.astro';
+import ThemeToggle from '@/components/ThemeToggle.astro';
 
 import '@/styles/global.css';
 import config from 'astro-spaceship/config';
@@ -14,4 +15,29 @@ export const getStaticPaths = getStaticPathsFactory({
 
 ---
 
-<Page {...Astro.props} />
+<Page {...Astro.props}>
+  <Fragment slot="head">
+    <!-- 引入 Alpine.js -->
+    <script>
+      import Alpine from 'alpinejs';
+      window.Alpine = Alpine;
+      Alpine.start();
+    </script>
+    
+    <!-- Tailwind dark mode 初始化脚本（防止闪烁） -->
+    <script is:inline>
+      // 在页面加载前立即执行，防止主题闪烁
+      (function() {
+        const theme = localStorage.getItem('theme') || 
+          (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </Fragment>
+</Page>
+<ThemeToggle />

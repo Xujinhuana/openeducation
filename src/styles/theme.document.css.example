@@ -1,0 +1,50 @@
+/* ============================================
+   文档页主题配置（示例文件）
+   如需分开配置，重命名为 theme.document.css
+   ============================================ */
+
+.document-page {
+  /* 侧边栏 */
+  --sidebar-bg: var(--theme-bg-secondary);
+  --sidebar-width: 280px;
+  --sidebar-border: var(--theme-border-light);
+  --sidebar-item-hover: var(--theme-bg-elevated);
+  --sidebar-item-active: var(--theme-primary);
+  
+  /* 导航栏 */
+  --header-bg: var(--theme-bg-elevated);
+  --header-height: 60px;
+  --header-border: var(--theme-border-light);
+  
+  /* 文章内容 */
+  --article-bg: var(--theme-bg-main);
+  --article-width: 800px;
+  --article-text: var(--theme-text-primary);
+  --article-heading: var(--theme-text-primary);
+  --article-line-height: 1.7;
+  
+  /* 右侧边栏 */
+  --right-sidebar-bg: var(--theme-bg-secondary);
+  --right-sidebar-width: 240px;
+}
+
+/* 文档页特殊元素样式 */
+.document-page .sidebar {
+  background: var(--sidebar-bg);
+  width: var(--sidebar-width);
+  border-right: 1px solid var(--sidebar-border);
+}
+
+.document-page .header {
+  background: var(--header-bg);
+  height: var(--header-height);
+  border-bottom: 1px solid var(--header-border);
+}
+
+.document-page .article {
+  background: var(--article-bg);
+  max-width: var(--article-width);
+  color: var(--article-text);
+  line-height: var(--article-line-height);
+}
+

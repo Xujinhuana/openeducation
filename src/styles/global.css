@@ -1,1 +1,10 @@
 @import "spaceship-monolith/theme";
+
+/* 导入暗色主题（官方） */
+@import "spaceship-monolith/dark";
+
+/* 导入亮色主题（官方） */
+@import "spaceship-monolith/light";
+
+/* 导入自定义主题配置 */
+@import "./theme.config.css";
