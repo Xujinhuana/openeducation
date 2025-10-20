@@ -9,8 +9,7 @@
     "build": "rm -fr node_modules && npm i && rm -fr .astro && astro build --sync",
     "preview": "astro preview",
     "astro": "astro",
-    "sync": "astro sync",
-    "postinstall": "patch-package"
+    "sync": "astro sync"
   },
   "dependencies": {
     "alpinejs": "^3.15.0",
