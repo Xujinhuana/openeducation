@@ -6,14 +6,14 @@
 /* ========== 暗色主题（默认） ========== */
 :root {
   /* 主色调 */
-  --theme-primary: #6366f1;           /* 主要强调色 */
-  --theme-secondary: #8b5cf6;         /* 次要强调色 */
-  --theme-accent: #ec4899;            /* 突出显示色 */
+  --theme-primary: #06b6d4;           /* 主要强调色 */
+  --theme-secondary: #3b82f6;         /* 次要强调色 */
+  --theme-accent: #22d3ee;            /* 突出显示色 */
   
   /* 背景色 */
-  --theme-bg-main: #0a0e27;           /* 主背景 */
-  --theme-bg-secondary: #1a1f3a;      /* 次背景 */
-  --theme-bg-elevated: #252b47;       /* 浮层背景 */
+  --theme-bg-main: #071827;           /* 主背景 */
+  --theme-bg-secondary: #0f2233;      /* 次背景 */
+  --theme-bg-elevated: #152a3d;       /* 浮层背景 */
   --theme-bg-overlay: rgba(0, 0, 0, 0.3); /* 遮罩背景 */
   
   /* 文字色 */
@@ -28,9 +28,9 @@
   --theme-border-strong: rgba(255, 255, 255, 0.3);
   
   /* 链接色 */
-  --theme-link-default: #60a5fa;      /* 链接颜色 */
-  --theme-link-hover: #93c5fd;        /* 链接悬停 */
-  --theme-link-active: #3b82f6;       /* 链接激活 */
+  --theme-link-default: #7dd3fc;      /* 链接颜色 */
+  --theme-link-hover: #bae6fd;        /* 链接悬停 */
+  --theme-link-active: #38bdf8;       /* 链接激活 */
   
   /* 代码块 */
   --theme-code-bg: #1e293b;           /* 代码背景 */
@@ -58,9 +58,9 @@
 /* ========== 亮色主题（使用 Tailwind 标准 dark mode） ========== */
 html:not(.dark) {
   /* 主色调（保持一致或微调） */
-  --theme-primary: #4f46e5;
-  --theme-secondary: #7c3aed;
-  --theme-accent: #ec4899;
+  --theme-primary: #0891b2;
+  --theme-secondary: #2563eb;
+  --theme-accent: #06b6d4;
   
   /* 背景色 */
   --theme-bg-main: #ffffff;
