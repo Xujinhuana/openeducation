@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build:github",
+  "outputDirectory": "dist",
+  "framework": "astro",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "env": {
+    "SPACESHIP_BASE": "/",
+    "SPACESHIP_AUTHOR": "My Vault"
+  }
+}

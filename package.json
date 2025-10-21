@@ -1,0 +1,29 @@
+{
+  "name": "spaceship",
+  "type": "module",
+  "version": "0.9.8",
+  "scripts": {
+    "dev": "astro dev",
+    "dev:local": "cross-env LOCAL_DEV=true astro dev",
+    "dev-setup": "npm link astro-spaceship astro-loader-obsidian spaceship-monolith",
+    "start": "rm -fr .astro && astro dev --sync",
+    "build": "rm -fr node_modules && npm i && rm -fr .astro && astro build --sync",
+    "build:github": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "sync": "astro sync"
+  },
+  "dependencies": {
+    "alpinejs": "^3.15.0",
+    "astro": "^5.14.6",
+    "astro-loader-obsidian": "^0.9.1",
+    "astro-spaceship": "^0.9.8",
+    "sharp": "^0.32.5",
+    "spaceship-monolith": "^0.9.8",
+    "varlock": "^0.0.15"
+  },
+  "devDependencies": {
+    "@types/alpinejs": "^3.13.11",
+    "patch-package": "^8.0.1"
+  }
+}
