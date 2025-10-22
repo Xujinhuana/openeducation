@@ -1,5 +1,5 @@
 {
-  "buildCommand": "SPACESHIP_BASE=/ SPACESHIP_SITE=https://openeducation.vercel.app SPACESHIP_AUTHOR='My Vault' npm run build:github",
+  "buildCommand": "npm run build:github",
   "outputDirectory": "dist",
   "framework": "astro",
   "devCommand": "npm run dev",
