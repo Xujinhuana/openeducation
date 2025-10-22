@@ -1,12 +1,7 @@
 {
-  "buildCommand": "npm run build:github",
+  "buildCommand": "SPACESHIP_BASE=/ SPACESHIP_SITE=https://openeducation.vercel.app SPACESHIP_AUTHOR='My Vault' npm run build:github",
   "outputDirectory": "dist",
   "framework": "astro",
   "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "env": {
-    "SPACESHIP_BASE": "/",
-    "SPACESHIP_SITE": "https://openeducation.vercel.app",
-    "SPACESHIP_AUTHOR": "My Vault"
-  }
+  "installCommand": "npm install"
 }
