@@ -26,6 +26,11 @@ jobs:
           # path: . # The root location of your Astro project inside the repository. (optional)
           node-version: 22 # 修复 varlock 依赖包需要 Node >= 22 的问题
           # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+        env:
+          # 设置 GitHub Pages 环境变量
+          SPACESHIP_SITE: https://xujinhuana.github.io
+          SPACESHIP_BASE: /openeducation/
+          SPACESHIP_AUTHOR: My Vault
 
   deploy:
     needs: build
