@@ -1,10 +1,23 @@
+/* ============================================
+   全局样式入口 - Global Styles Entry
+   ============================================ */
+
+/* 字体引入 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+
+/* 官方基础主题 */
 @import "spaceship-monolith/theme";
-
-/* 导入暗色主题（官方） */
 @import "spaceship-monolith/dark";
-
-/* 导入亮色主题（官方） */
 @import "spaceship-monolith/light";
 
-/* 导入自定义主题配置 */
-@import "./theme.config.css";
+/* 默认主题（默认加载） */
+@import "./theme.default.css";
+
+/* 
+ * 其他主题文件（由 ThemeSelector 动态加载）：
+ * - theme.framer.css (Framer 主题)
+ * - theme.galaxy.css (Galaxy 主题 - 官方)
+ * - theme.journey.css (Journey 主题 - 官方)
+ * - theme.temple.css (Temple 主题 - 官方)
+ */

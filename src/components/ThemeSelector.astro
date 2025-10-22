@@ -1,0 +1,409 @@
+---
+// 主题选择器 - 简单的下拉菜单
+---
+
+<div class="theme-selector">
+  <button class="theme-selector-btn" id="theme-selector-btn" aria-label="选择主题">
+    <span class="theme-icon">🎨</span>
+    <span class="theme-label" id="current-theme-label">主题</span>
+    <span class="theme-arrow">▼</span>
+  </button>
+  
+  <div class="theme-dropdown" id="theme-dropdown">
+    <button class="theme-option" data-theme="default">
+      <span class="option-icon">🎨</span>
+      <span class="option-text">Default 主题</span>
+    </button>
+    
+    <button class="theme-option" data-theme="framer">
+      <span class="option-icon">🖼️</span>
+      <span class="option-text">Framer 主题</span>
+    </button>
+    
+    <button class="theme-option" data-theme="galaxy">
+      <span class="option-icon">🌠</span>
+      <span class="option-text">Galaxy 主题</span>
+    </button>
+    
+    <button class="theme-option" data-theme="journey">
+      <span class="option-icon">✈️</span>
+      <span class="option-text">Journey 主题</span>
+    </button>
+    
+    <button class="theme-option" data-theme="temple">
+      <span class="option-icon">🏛️</span>
+      <span class="option-text">Temple 主题</span>
+    </button>
+  </div>
+</div>
+
+<style>
+  /* 主题选择器容器 */
+  .theme-selector {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  /* 主按钮 */
+  .theme-selector-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--theme-bg-elevated, #152a3d);
+    color: var(--theme-text-primary, #e2e8f0);
+    border: 1px solid var(--theme-border-light, rgba(255, 255, 255, 0.1));
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .theme-selector-btn:hover {
+    background: var(--theme-bg-main, #071827);
+    border-color: var(--theme-primary, #06b6d4);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .theme-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .theme-label {
+    min-width: 80px;
+    text-align: left;
+  }
+
+  .theme-arrow {
+    font-size: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  .theme-selector-btn.open .theme-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* 下拉菜单 */
+  .theme-dropdown {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    min-width: 180px;
+    background: var(--theme-bg-elevated, #152a3d);
+    border: 1px solid var(--theme-border-light, rgba(255, 255, 255, 0.1));
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    overflow: hidden;
+  }
+
+  .theme-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* 主题选项 */
+  .theme-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    color: var(--theme-text-primary, #e2e8f0);
+    border: none;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .theme-option:hover {
+    background: var(--theme-bg-main, #071827);
+    color: var(--theme-primary, #06b6d4);
+  }
+
+  .theme-option.active {
+    background: var(--theme-primary, #06b6d4);
+    color: white;
+  }
+
+  .theme-option.active .option-icon {
+    transform: scale(1.2);
+  }
+
+  .option-icon {
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+
+  .option-text {
+    flex: 1;
+  }
+
+  /* 移动端适配 */
+  @media (max-width: 768px) {
+    .theme-selector {
+      bottom: 80px;
+      right: 15px;
+    }
+
+    .theme-selector-btn {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .theme-label {
+      min-width: 60px;
+    }
+
+    .theme-dropdown {
+      min-width: 160px;
+    }
+
+    .theme-option {
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+  }
+
+  /* 在小屏幕上隐藏文字，只显示图标 */
+  @media (max-width: 480px) {
+    .theme-label,
+    .theme-arrow {
+      display: none;
+    }
+
+    .theme-selector-btn {
+      padding: 10px;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    const btn = document.getElementById('theme-selector-btn');
+    const dropdown = document.getElementById('theme-dropdown');
+    const label = document.getElementById('current-theme-label');
+    const options = document.querySelectorAll('.theme-option');
+
+    // 动态加载主题 CSS 文件
+    let currentThemeLink = null;
+    
+    function loadThemeCSS(themeName) {
+      // 移除之前加载的主题文件
+      if (currentThemeLink) {
+        currentThemeLink.remove();
+        currentThemeLink = null;
+      }
+      
+      // 根据主题名称确定是否需要加载额外的 CSS 文件
+      // 默认主题已经在 global.css 中加载，不需要额外加载
+      const themeFiles = {
+        'framer': 'theme.framer.css',
+        'galaxy': 'theme.galaxy.css',
+        'journey': 'theme.journey.css',
+        'temple': 'theme.temple.css'
+      };
+      
+      const fileName = themeFiles[themeName];
+      if (fileName) {
+        // 创建一个 style 标签动态导入主题
+        const style = document.createElement('style');
+        style.id = 'dynamic-theme-css';
+        style.textContent = '@import url("/openeducation/src/styles/' + fileName + '");';
+        document.head.appendChild(style);
+        currentThemeLink = style;
+      }
+    }
+
+    // 获取当前明暗模式状态
+    function getCurrentColorMode() {
+      // 优先从 localStorage 读取用户偏好
+      const saved = localStorage.getItem('colorMode');
+      if (saved === 'dark' || saved === 'light') {
+        return saved;
+      }
+      // 其次检查当前 DOM 状态
+      if (document.documentElement.classList.contains('dark')) {
+        return 'dark';
+      }
+      // 最后使用系统偏好
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+      return 'light';
+    }
+
+    // 应用明暗模式（由 ThemeToggle 和主题切换共用）
+    function applyColorMode(mode) {
+      if (mode === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+      }
+      localStorage.setItem('colorMode', mode);
+    }
+
+    // 主题配置（只保留主题风格，不包含明暗变体）
+    const themes = {
+      'default': {
+        name: 'Default 主题',
+        icon: '🎨',
+        themeFile: 'default',
+        apply: function() {
+          loadThemeCSS('default');
+          // 保持当前明暗模式
+          const currentMode = getCurrentColorMode();
+          applyColorMode(currentMode);
+          document.documentElement.removeAttribute('data-theme');
+          document.body.classList.remove('framer-theme', 'framer-typography');
+          document.body.style.background = '';
+          document.body.style.color = '';
+        }
+      },
+      'framer': {
+        name: 'Framer 主题',
+        icon: '🖼️',
+        themeFile: 'framer',
+        apply: function() {
+          loadThemeCSS('framer');
+          // 保持当前明暗模式
+          const currentMode = getCurrentColorMode();
+          if (currentMode === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+          }
+          applyColorMode(currentMode);
+          document.body.classList.add('framer-theme', 'framer-typography');
+          document.body.style.background = 'var(--framer-bg)';
+          document.body.style.color = 'var(--framer-text)';
+        }
+      },
+      'galaxy': {
+        name: 'Galaxy 主题',
+        icon: '🌠',
+        themeFile: 'galaxy',
+        apply: function() {
+          loadThemeCSS('galaxy');
+          // 保持当前明暗模式
+          const currentMode = getCurrentColorMode();
+          applyColorMode(currentMode);
+          document.documentElement.removeAttribute('data-theme');
+          document.body.classList.remove('framer-theme', 'framer-typography');
+          document.body.style.background = '';
+          document.body.style.color = '';
+        }
+      },
+      'journey': {
+        name: 'Journey 主题',
+        icon: '✈️',
+        themeFile: 'journey',
+        apply: function() {
+          loadThemeCSS('journey');
+          // 保持当前明暗模式
+          const currentMode = getCurrentColorMode();
+          applyColorMode(currentMode);
+          document.documentElement.removeAttribute('data-theme');
+          document.body.classList.remove('framer-theme', 'framer-typography');
+          document.body.style.background = '';
+          document.body.style.color = '';
+        }
+      },
+      'temple': {
+        name: 'Temple 主题',
+        icon: '🏛️',
+        themeFile: 'temple',
+        apply: function() {
+          loadThemeCSS('temple');
+          // 保持当前明暗模式
+          const currentMode = getCurrentColorMode();
+          applyColorMode(currentMode);
+          document.documentElement.removeAttribute('data-theme');
+          document.body.classList.remove('framer-theme', 'framer-typography');
+          document.body.style.background = '';
+          document.body.style.color = '';
+        }
+      }
+    };
+
+    // 加载保存的主题
+    function loadTheme() {
+      const saved = localStorage.getItem('selectedTheme') || 'default';
+      applyTheme(saved);
+    }
+
+    // 应用主题
+    function applyTheme(themeId) {
+      const theme = themes[themeId];
+      if (!theme) return;
+
+      // 应用主题
+      theme.apply();
+
+      // 更新按钮文字
+      label.textContent = theme.name;
+
+      // 更新选项状态
+      options.forEach(function(opt) {
+        if (opt.getAttribute('data-theme') === themeId) {
+          opt.classList.add('active');
+        } else {
+          opt.classList.remove('active');
+        }
+      });
+
+      // 保存选择
+      localStorage.setItem('selectedTheme', themeId);
+    }
+
+    // 切换下拉菜单
+    btn?.addEventListener('click', function() {
+      const isOpen = dropdown.classList.contains('show');
+      if (isOpen) {
+        dropdown.classList.remove('show');
+        btn.classList.remove('open');
+      } else {
+        dropdown.classList.add('show');
+        btn.classList.add('open');
+      }
+    });
+
+    // 点击选项
+    options.forEach(function(option) {
+      option.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const themeId = this.getAttribute('data-theme');
+        applyTheme(themeId);
+        dropdown.classList.remove('show');
+        btn.classList.remove('open');
+      });
+    });
+
+    // 点击外部关闭
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.theme-selector')) {
+        dropdown.classList.remove('show');
+        btn?.classList.remove('open');
+      }
+    });
+
+    // 初始化
+    loadTheme();
+  })();
+</script>
+

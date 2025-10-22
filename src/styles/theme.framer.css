@@ -1,0 +1,361 @@
+/* ============================================
+   Framer 主题 - Framer Theme
+   整合 Framer 颜色、排版、响应式和组件样式
+   ============================================ */
+
+/* ========== Framer 颜色系统 - 亮色模式（默认） ========== */
+:root {
+  /* 核心颜色 */
+  --framer-bg: rgb(236, 235, 228);           /* 米色背景 */
+  --framer-bg-card: rgb(249, 247, 246);      /* 卡片填充 */
+  --framer-text: rgb(17, 16, 17);            /* 主文字 */
+  --framer-text-subtle: rgba(16, 15, 16, 0.7); /* 次要文字 */
+  --framer-dash: rgb(197, 197, 197);         /* 分割线 */
+  
+  /* 棕色系 - Support-100 */
+  --framer-support-100: rgb(244, 242, 239);
+  --framer-support-120: rgb(130, 124, 106);
+  
+  /* 紫色系 - Support-200 */
+  --framer-support-200: rgb(229, 219, 235);
+  --framer-support-220: rgb(222, 202, 232);
+  --framer-support-230: rgb(152, 125, 165);
+  
+  /* 绿色系 - Support-300 */
+  --framer-support-300: rgb(210, 232, 200);
+  --framer-support-320: rgb(193, 222, 175);
+  --framer-support-330: rgb(111, 153, 84);
+  
+  /* 蓝灰系 - Support-400 */
+  --framer-support-400: rgb(220, 228, 234);
+  --framer-support-420: rgb(204, 211, 217);
+  --framer-support-430: rgb(148, 161, 170);
+  
+  /* 橙色系 - Support-500 */
+  --framer-support-500: rgb(250, 228, 208);
+  --framer-support-510: rgb(194, 137, 81);
+  
+  /* 字体家族 */
+  --framer-font-heading: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --framer-font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* ========== Framer 暗色模式 ========== */
+[data-theme="dark"] {
+  --framer-bg: rgb(30, 30, 30);
+  --framer-bg-card: rgb(40, 40, 40);
+  --framer-text: rgb(240, 240, 240);
+  --framer-text-subtle: rgba(240, 240, 240, 0.7);
+  --framer-dash: rgb(80, 80, 80);
+}
+
+/* ========== Framer 排版系统 ========== */
+
+/* 标题样式类（需手动应用类名才生效） */
+.framer-h1 {
+  font-family: var(--framer-font-heading);
+  font-size: 58px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.1em;
+  margin-bottom: 40px;
+}
+
+.framer-h2 {
+  font-family: var(--framer-font-heading);
+  font-size: 50px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1em;
+  margin-bottom: 40px;
+}
+
+.framer-h3 {
+  font-family: var(--framer-font-heading);
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1em;
+  margin-bottom: 40px;
+}
+
+.framer-h4 {
+  font-family: var(--framer-font-heading);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2em;
+  margin-bottom: 40px;
+}
+
+.framer-h5 {
+  font-family: var(--framer-font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2em;
+  color: var(--framer-text-subtle);
+  margin-bottom: 40px;
+}
+
+/* 正文样式 */
+.framer-body-24 {
+  font-family: var(--framer-font-body);
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.5em;
+}
+
+.framer-body-20 {
+  font-family: var(--framer-font-body);
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  line-height: 1.5em;
+}
+
+.framer-body-18 {
+  font-family: var(--framer-font-body);
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  line-height: 1.5em;
+}
+
+.framer-body-16 {
+  font-family: var(--framer-font-body);
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  line-height: 1.4em;
+}
+
+.framer-body-14 {
+  font-family: var(--framer-font-body);
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  line-height: 1.4em;
+}
+
+/* 自动应用到标准HTML标签（需添加body类名） */
+body.framer-typography h1 {
+  font-family: var(--framer-font-heading);
+  font-size: 58px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.1em;
+  margin-bottom: 40px;
+}
+
+body.framer-typography h2 {
+  font-family: var(--framer-font-heading);
+  font-size: 50px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1em;
+  margin-bottom: 40px;
+}
+
+body.framer-typography h3 {
+  font-family: var(--framer-font-heading);
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1em;
+  margin-bottom: 40px;
+}
+
+body.framer-typography h4 {
+  font-family: var(--framer-font-heading);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2em;
+  margin-bottom: 40px;
+}
+
+body.framer-typography h5 {
+  font-family: var(--framer-font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2em;
+  color: var(--framer-text-subtle);
+  margin-bottom: 40px;
+}
+
+body.framer-typography p {
+  font-family: var(--framer-font-body);
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  line-height: 1.5em;
+}
+
+/* ========== Framer 响应式系统 ========== */
+
+/* 移动端 - 0px+ */
+@media (max-width: 767px) {
+  .framer-h1 { font-size: 40px; }
+  .framer-h2 { font-size: 32px; }
+  .framer-h3 { font-size: 24px; }
+  .framer-h4 { font-size: 24px; }
+  
+  body.framer-typography h1 { font-size: 40px; }
+  body.framer-typography h2 { font-size: 32px; }
+  body.framer-typography h3 { font-size: 24px; }
+  body.framer-typography h4 { font-size: 24px; }
+}
+
+/* 平板 - 768px+ */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .framer-h1 { font-size: 40px; }
+  .framer-h2 { font-size: 32px; }
+  .framer-h3 { font-size: 24px; }
+  .framer-h4 { font-size: 24px; }
+  
+  body.framer-typography h1 { font-size: 40px; }
+  body.framer-typography h2 { font-size: 32px; }
+  body.framer-typography h3 { font-size: 24px; }
+  body.framer-typography h4 { font-size: 24px; }
+}
+
+/* 笔记本 - 1200px+ */
+@media (min-width: 1200px) and (max-width: 1279px) {
+  .framer-h1 { font-size: 52px; }
+  .framer-h2 { font-size: 36px; }
+  .framer-h3 { font-size: 32px; }
+  .framer-h4 { font-size: 26px; }
+  
+  body.framer-typography h1 { font-size: 52px; }
+  body.framer-typography h2 { font-size: 36px; }
+  body.framer-typography h3 { font-size: 32px; }
+  body.framer-typography h4 { font-size: 26px; }
+}
+
+/* 桌面 - 1280px+ */
+@media (min-width: 1280px) and (max-width: 1535px) {
+  .framer-h1 { font-size: 52px; }
+  .framer-h2 { font-size: 40px; }
+  .framer-h3 { font-size: 32px; }
+  .framer-h4 { font-size: 28px; }
+  
+  body.framer-typography h1 { font-size: 52px; }
+  body.framer-typography h2 { font-size: 40px; }
+  body.framer-typography h3 { font-size: 32px; }
+  body.framer-typography h4 { font-size: 28px; }
+}
+
+/* 大屏 - 1536px+ */
+@media (min-width: 1536px) {
+  .framer-h1 { font-size: 60px; }
+  .framer-h2 { font-size: 48px; }
+  .framer-h3 { font-size: 32px; }
+  .framer-h4 { font-size: 28px; }
+  
+  body.framer-typography h1 { font-size: 60px; }
+  body.framer-typography h2 { font-size: 48px; }
+  body.framer-typography h3 { font-size: 32px; }
+  body.framer-typography h4 { font-size: 28px; }
+}
+
+/* ========== Framer 组件样式 ========== */
+
+/* Badge 徽章 */
+.framer-badge {
+  font-family: var(--framer-font-body);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--framer-text-subtle);
+  line-height: 1.5em;
+}
+
+/* Menu 菜单 */
+.framer-menu {
+  font-family: var(--framer-font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.5em;
+}
+
+/* Quote 引用 */
+.framer-quote {
+  font-family: var(--framer-font-body);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2em;
+  color: var(--framer-text);
+}
+
+/* Metric 数据指标 */
+.framer-metric {
+  font-family: var(--framer-font-heading);
+  font-size: 48px;
+  letter-spacing: 0;
+  line-height: 1.2em;
+  text-align: center;
+}
+
+/* Title 大标题系列 */
+.framer-title-lg {
+  font-family: var(--framer-font-heading);
+  font-size: 60px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.1em;
+}
+
+.framer-title-md {
+  font-family: var(--framer-font-heading);
+  font-size: 48px;
+  letter-spacing: -0.02em;
+  line-height: 1.2em;
+}
+
+.framer-title-sm {
+  font-family: var(--framer-font-heading);
+  font-size: 36px;
+  letter-spacing: -0.04em;
+  line-height: 1.2em;
+}
+
+/* ========== Framer 主题应用到元素 ========== */
+
+/* 当应用 Framer 主题时，使用 Framer 颜色变量 */
+body.framer-theme {
+  background: var(--framer-bg);
+  color: var(--framer-text);
+}
+
+body.framer-theme a {
+  color: var(--framer-support-430);
+  transition: color 0.2s ease;
+}
+
+body.framer-theme a:hover {
+  color: var(--framer-text);
+}
+
+body.framer-theme code {
+  background: var(--framer-bg-card);
+  color: var(--framer-support-230);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-family: 'Fira Code', 'Courier New', monospace;
+}
+
+body.framer-theme pre {
+  background: var(--framer-bg-card);
+  border: 1px solid var(--framer-dash);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+body.framer-theme blockquote {
+  border-left: 4px solid var(--framer-support-330);
+  background: var(--framer-bg-card);
+  color: var(--framer-text-subtle);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0.25rem;
+}
+

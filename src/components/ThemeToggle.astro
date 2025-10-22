@@ -83,12 +83,12 @@
 </style>
 
 <script>
-  // Tailwind CSS 标准 dark mode 切换
-  // 参考：https://tailwindcss.com/docs/dark-mode
+  // 明暗模式切换器（与 ThemeSelector 协同工作）
+  // 使用 colorMode 存储键，与主题选择器保持一致
   
-  const getTheme = (): 'light' | 'dark' => {
+  const getColorMode = (): 'light' | 'dark' => {
     if (typeof localStorage !== 'undefined') {
-      const stored = localStorage.getItem('theme');
+      const stored = localStorage.getItem('colorMode');
       if (stored === 'light' || stored === 'dark') {
         return stored as 'light' | 'dark';
       }
@@ -100,35 +100,47 @@
     return 'dark';
   };
 
-  const setTheme = (theme: 'light' | 'dark') => {
+  const setColorMode = (mode: 'light' | 'dark') => {
     const html = document.documentElement;
     
     // Tailwind 标准方式：dark 模式添加 .dark class，light 模式移除
-    if (theme === 'dark') {
+    if (mode === 'dark') {
       html.classList.add('dark');
+      html.classList.remove('light');
     } else {
       html.classList.remove('dark');
+      html.classList.add('light');
+    }
+    
+    // 对于 Framer 主题，需要特殊处理 data-theme 属性
+    const currentTheme = localStorage.getItem('selectedTheme');
+    if (currentTheme === 'framer') {
+      if (mode === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+      } else {
+        html.removeAttribute('data-theme');
+      }
     }
     
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('theme', theme);
+      localStorage.setItem('colorMode', mode);
     }
   };
 
-  // 初始化主题（在页面加载前执行，避免闪烁）
-  setTheme(getTheme());
+  // 初始化明暗模式（在页面加载前执行，避免闪烁）
+  setColorMode(getColorMode());
 
   // 切换按钮事件
   document.getElementById('theme-toggle')?.addEventListener('click', () => {
-    const currentTheme = getTheme();
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
+    const currentMode = getColorMode();
+    const newMode = currentMode === 'light' ? 'dark' : 'light';
+    setColorMode(newMode);
   });
 
   // 监听系统主题变化（如果用户没有手动设置）
   window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-    if (typeof localStorage !== 'undefined' && !localStorage.getItem('theme')) {
-      setTheme(e.matches ? 'light' : 'dark');
+    if (typeof localStorage !== 'undefined' && !localStorage.getItem('colorMode')) {
+      setColorMode(e.matches ? 'light' : 'dark');
     }
   });
 </script>
