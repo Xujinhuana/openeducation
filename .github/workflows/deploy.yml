@@ -20,18 +20,28 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
-      - name: Install, build, and upload your site
-        uses: withastro/action@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          # path: . # The root location of your Astro project inside the repository. (optional)
-          node-version: 22 # 修复 varlock 依赖包需要 Node >= 22 的问题
-          # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
-          build: npm run build:github # 使用静态构建配置（GitHub Pages 不支持 SSR）
+          node-version: 22
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build with Astro (Static for GitHub Pages)
+        run: npm run build:github
         env:
           # 设置 GitHub Pages 环境变量
           SPACESHIP_SITE: https://xujinhuana.github.io
           SPACESHIP_BASE: /openeducation/
           SPACESHIP_AUTHOR: My Vault
+      
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
 
   deploy:
     needs: build
