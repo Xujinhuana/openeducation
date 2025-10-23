@@ -10,6 +10,9 @@ import config from 'astro-spaceship/config';
 
 export type { Props };
 
+// 🔥 关键：在 server 模式下，让这个页面预渲染为静态 HTML
+export const prerender = true;
+
 export const getStaticPaths = getStaticPathsFactory({
   config,
 });
@@ -45,6 +48,11 @@ export const getStaticPaths = getStaticPathsFactory({
         const theme = localStorage.getItem('selectedTheme') || 'default';
         document.documentElement.setAttribute('data-active-theme', theme);
       })();
+    </script>
+    
+    <!-- 注入文章统计组件 -->
+    <script>
+      import '@/scripts/inject-article-stats.ts';
     </script>
   </Fragment>
 </Page>

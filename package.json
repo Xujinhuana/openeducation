@@ -15,6 +15,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.76.1",
     "alpinejs": "^3.15.0",
     "astro": "^5.14.6",
     "astro-loader-obsidian": "^0.9.1",

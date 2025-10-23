@@ -5,6 +5,7 @@ import { astroSpaceship } from 'astro-spaceship';
 import websiteConfig from 'astro-spaceship/config';
 
 export default defineConfig({
+  output: 'server',  // 🔥 关键：启用 server 模式支持 API 路由和 SSR
   integrations: [
     astroSpaceship(websiteConfig)
   ],

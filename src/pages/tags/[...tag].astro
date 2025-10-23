@@ -7,6 +7,9 @@ import config from 'astro-spaceship/config'
 
 export type { Props };
 
+// 🔥 在 server 模式下，让这个页面预渲染为静态 HTML
+export const prerender = true;
+
 export const getStaticPaths = getStaticPathsFactory({
   config,
 });

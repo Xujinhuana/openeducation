@@ -1,0 +1,86 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<div class="article-stats" data-slug={slug}>
+  <div class="stat-item">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+    <span class="stat-value" id="views-count">-</span>
+    <span class="stat-label">次浏览</span>
+  </div>
+</div>
+
+<style>
+  .article-stats {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--color-bg-secondary, #f9fafb);
+    border-radius: 6px;
+    margin: 1rem 0;
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-text-secondary, #6b7280);
+    font-size: 0.875rem;
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+  }
+
+  .stat-value {
+    font-weight: 600;
+    color: var(--color-text, #1f2937);
+  }
+</style>
+
+<script>
+  const slug = document.querySelector('.article-stats')?.getAttribute('data-slug');
+
+  if (slug) {
+    // 加载统计数据
+    async function loadStats() {
+      try {
+        const response = await fetch(`/api/stats/${slug}`);
+        const data = await response.json();
+        
+        const viewsEl = document.getElementById('views-count');
+        if (viewsEl) {
+          viewsEl.textContent = data.views?.toString() || '0';
+        }
+      } catch (error) {
+        console.error('Failed to load stats:', error);
+      }
+    }
+
+    // 增加浏览量
+    async function incrementViews() {
+      try {
+        await fetch(`/api/stats/${slug}`, { method: 'POST' });
+        // 浏览量增加后重新加载
+        setTimeout(loadStats, 100);
+      } catch (error) {
+        console.error('Failed to increment views:', error);
+      }
+    }
+
+    // 页面加载时执行
+    loadStats();
+    incrementViews();
+  }
+</script>
+
