@@ -96,6 +96,38 @@ degit aitorllj93/astro-theme-spaceship
 
 ---
 
+## 📚 中文文档 / Chinese Documentation
+
+完整的中文配置和集成指南：
+
+### 核心文档
+
+- **[中文配置指南](./中文配置指南.md)** - 基础配置和常见问题（必读）
+- **[集成方案总览](./集成方案总览.md)** - 所有可用的功能增强方案
+
+### 专项指南
+
+- **[图床配置指南-七牛云](./图床配置指南-七牛云.md)** - PicGo + 七牛云图床完整配置
+- **[Supabase 集成指南](./Supabase集成指南.md)** - 评论、统计、点赞等动态功能
+- **[PKMer 迁移方案](./PKMer迁移方案.md)** - UI 定制和优化
+
+### 快速开始
+
+```bash
+# 1. 安装依赖
+npm install
+
+# 2. 本地开发
+npm run dev
+
+# 3. 构建部署
+npm run build
+```
+
+详细步骤请查看 [中文配置指南](./中文配置指南.md)
+
+---
+
 ## 📄 License
 
 MIT – Free to use, modify, and share.
