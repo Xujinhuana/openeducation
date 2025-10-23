@@ -8,13 +8,15 @@
     "dev-setup": "npm link astro-spaceship astro-loader-obsidian spaceship-monolith",
     "start": "rm -fr .astro && astro dev --sync",
     "build": "rm -fr node_modules && npm i && rm -fr .astro && astro build --sync",
-    "build:github": "astro build",
+    "build:github": "astro build --config astro.config.static.ts",
+    "build:vercel": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "sync": "astro sync",
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@astrojs/vercel": "^9.0.0",
     "@supabase/supabase-js": "^2.76.1",
     "alpinejs": "^3.15.0",
     "astro": "^5.14.6",
