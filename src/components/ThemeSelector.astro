@@ -1,8 +1,21 @@
 ---
 // 主题选择器 - 简单的下拉菜单
+// 导入主题 CSS 文件，Astro 会自动处理路径
+import framerCss from '@/styles/theme.framer.css?url';
+import galaxyCss from '@/styles/theme.galaxy.css?url';
+import journeyCss from '@/styles/theme.journey.css?url';
+import templeCss from '@/styles/theme.temple.css?url';
+
+// 将 CSS 路径暴露给客户端脚本
+const themeCssUrls = {
+  framer: framerCss,
+  galaxy: galaxyCss,
+  journey: journeyCss,
+  temple: templeCss
+};
 ---
 
-<div class="theme-selector">
+<div class="theme-selector" data-theme-urls={JSON.stringify(themeCssUrls)}>
   <button class="theme-selector-btn" id="theme-selector-btn" aria-label="选择主题">
     <span class="theme-icon">🎨</span>
     <span class="theme-label" id="current-theme-label">主题</span>
@@ -197,6 +210,10 @@
     const dropdown = document.getElementById('theme-dropdown');
     const label = document.getElementById('current-theme-label');
     const options = document.querySelectorAll('.theme-option');
+    const themeSelector = document.querySelector('.theme-selector');
+    
+    // 获取主题 CSS URLs（由 Astro 在构建时注入）
+    const themeCssUrls = JSON.parse(themeSelector.getAttribute('data-theme-urls') || '{}');
 
     // 动态加载主题 CSS 文件
     let currentThemeLink = null;
@@ -208,23 +225,15 @@
         currentThemeLink = null;
       }
       
-      // 根据主题名称确定是否需要加载额外的 CSS 文件
-      // 默认主题已经在 global.css 中加载，不需要额外加载
-      const themeFiles = {
-        'framer': 'theme.framer.css',
-        'galaxy': 'theme.galaxy.css',
-        'journey': 'theme.journey.css',
-        'temple': 'theme.temple.css'
-      };
-      
-      const fileName = themeFiles[themeName];
-      if (fileName) {
-        // 创建一个 style 标签动态导入主题
-        const style = document.createElement('style');
-        style.id = 'dynamic-theme-css';
-        style.textContent = '@import url("/openeducation/src/styles/' + fileName + '");';
-        document.head.appendChild(style);
-        currentThemeLink = style;
+      // 如果主题有对应的 CSS 文件，则加载
+      const cssUrl = themeCssUrls[themeName];
+      if (cssUrl) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = cssUrl;
+        link.id = 'dynamic-theme-css';
+        document.head.appendChild(link);
+        currentThemeLink = link;
       }
     }
 
@@ -263,80 +272,56 @@
       'default': {
         name: 'Default 主题',
         icon: '🎨',
-        themeFile: 'default',
         apply: function() {
           loadThemeCSS('default');
           // 保持当前明暗模式
           const currentMode = getCurrentColorMode();
           applyColorMode(currentMode);
-          document.documentElement.removeAttribute('data-theme');
           document.body.classList.remove('framer-theme', 'framer-typography');
-          document.body.style.background = '';
-          document.body.style.color = '';
         }
       },
       'framer': {
         name: 'Framer 主题',
         icon: '🖼️',
-        themeFile: 'framer',
         apply: function() {
           loadThemeCSS('framer');
           // 保持当前明暗模式
           const currentMode = getCurrentColorMode();
-          if (currentMode === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-          } else {
-            document.documentElement.removeAttribute('data-theme');
-          }
           applyColorMode(currentMode);
           document.body.classList.add('framer-theme', 'framer-typography');
-          document.body.style.background = 'var(--framer-bg)';
-          document.body.style.color = 'var(--framer-text)';
         }
       },
       'galaxy': {
         name: 'Galaxy 主题',
         icon: '🌠',
-        themeFile: 'galaxy',
         apply: function() {
           loadThemeCSS('galaxy');
           // 保持当前明暗模式
           const currentMode = getCurrentColorMode();
           applyColorMode(currentMode);
-          document.documentElement.removeAttribute('data-theme');
           document.body.classList.remove('framer-theme', 'framer-typography');
-          document.body.style.background = '';
-          document.body.style.color = '';
         }
       },
       'journey': {
         name: 'Journey 主题',
         icon: '✈️',
-        themeFile: 'journey',
         apply: function() {
           loadThemeCSS('journey');
           // 保持当前明暗模式
           const currentMode = getCurrentColorMode();
           applyColorMode(currentMode);
-          document.documentElement.removeAttribute('data-theme');
           document.body.classList.remove('framer-theme', 'framer-typography');
-          document.body.style.background = '';
-          document.body.style.color = '';
         }
       },
       'temple': {
         name: 'Temple 主题',
         icon: '🏛️',
-        themeFile: 'temple',
         apply: function() {
           loadThemeCSS('temple');
           // 保持当前明暗模式
           const currentMode = getCurrentColorMode();
           applyColorMode(currentMode);
-          document.documentElement.removeAttribute('data-theme');
           document.body.classList.remove('framer-theme', 'framer-typography');
-          document.body.style.background = '';
-          document.body.style.color = '';
         }
       }
     };

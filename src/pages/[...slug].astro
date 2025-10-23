@@ -25,18 +25,25 @@ export const getStaticPaths = getStaticPathsFactory({
       Alpine.start();
     </script>
     
-    <!-- Tailwind dark mode 初始化脚本（防止闪烁） -->
+    <!-- 主题初始化脚本（防止闪烁） -->
     <script is:inline>
-      // 在页面加载前立即执行，防止主题闪烁
+      // 在页面加载前立即执行，防止主题和颜色模式闪烁
       (function() {
-        const theme = localStorage.getItem('theme') || 
+        // 初始化颜色模式（亮色/暗色）
+        const colorMode = localStorage.getItem('colorMode') || 
           (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
         
-        if (theme === 'dark') {
+        if (colorMode === 'dark') {
           document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
         } else {
           document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
         }
+        
+        // 初始化主题
+        const theme = localStorage.getItem('selectedTheme') || 'default';
+        document.documentElement.setAttribute('data-active-theme', theme);
       })();
     </script>
   </Fragment>
