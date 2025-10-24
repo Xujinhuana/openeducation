@@ -50,10 +50,12 @@ export const getStaticPaths = getStaticPathsFactory({
       })();
     </script>
     
-    <!-- 注入文章统计组件 -->
-    <script>
-      import '@/scripts/inject-article-stats.ts';
-    </script>
+    <!-- 注入文章统计组件（仅在启用 Supabase 时） -->
+    {import.meta.env.PUBLIC_ENABLE_SUPABASE === 'true' && (
+      <script>
+        import '@/scripts/inject-article-stats.ts';
+      </script>
+    )}
   </Fragment>
 </Page>
 <ThemeToggle />

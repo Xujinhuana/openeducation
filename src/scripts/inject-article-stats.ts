@@ -1,10 +1,21 @@
 /**
  * 动态注入文章统计组件
  * 由于使用了 astro-spaceship 主题，通过 JavaScript 动态插入统计组件
+ * 
+ * 注意：仅在启用 Supabase 功能时执行（Vercel 部署）
  */
 
-// 添加样式
-const style = document.createElement('style');
+// 检查是否启用 Supabase 功能
+const enableSupabase = import.meta.env.PUBLIC_ENABLE_SUPABASE === 'true';
+
+if (!enableSupabase) {
+  console.log('[ArticleStats] Supabase 功能未启用，跳过统计组件注入');
+  // 不执行任何操作
+} else {
+  console.log('[ArticleStats] Supabase 功能已启用，注入统计组件');
+  
+  // 添加样式
+  const style = document.createElement('style');
 style.textContent = `
   .article-stats {
     display: inline-flex;
@@ -128,4 +139,4 @@ async function loadAndIncrementStats(slug: string) {
     }
   }
 }
-
+} // 结束 enableSupabase 的 else 块

@@ -4,18 +4,29 @@ interface Props {
 }
 
 const { slug } = Astro.props;
+
+// 检查是否启用 Supabase 功能
+const enableSupabase = import.meta.env.PUBLIC_ENABLE_SUPABASE === 'true';
 ---
 
-<div class="article-stats" data-slug={slug}>
-  <div class="stat-item">
-    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-      <circle cx="12" cy="12" r="3"></circle>
-    </svg>
-    <span class="stat-value" id="views-count">-</span>
-    <span class="stat-label">次浏览</span>
+{enableSupabase ? (
+  <!-- Vercel 部署：显示统计功能 -->
+  <div class="article-stats" data-slug={slug}>
+    <div class="stat-item">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+      <span class="stat-value" id="views-count">-</span>
+      <span class="stat-label">次浏览</span>
+    </div>
   </div>
-</div>
+) : (
+  <!-- GitHub Pages 部署：不显示统计功能 -->
+  <div class="article-info" style="display: none;">
+    <!-- 静态版本，无统计功能 -->
+  </div>
+)}
 
 <style>
   .article-stats {

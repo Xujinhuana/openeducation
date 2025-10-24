@@ -37,6 +37,8 @@ jobs:
           SPACESHIP_SITE: https://xujinhuana.github.io
           SPACESHIP_BASE: /openeducation/
           SPACESHIP_AUTHOR: My Vault
+          # 禁用 Supabase 功能（GitHub Pages 不支持 SSR）
+          PUBLIC_ENABLE_SUPABASE: 'false'
       
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
