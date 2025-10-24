@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
+      - name: Disable API routes for static build
+        run: mv src/pages/api src/pages_api_disabled || true
+      
       - name: Build with Astro (Static for GitHub Pages)
         run: npm run build:github
         env:
@@ -39,6 +42,10 @@ jobs:
           SPACESHIP_AUTHOR: My Vault
           # 禁用 Supabase 功能（GitHub Pages 不支持 SSR）
           PUBLIC_ENABLE_SUPABASE: 'false'
+      
+      - name: Restore API routes (optional)
+        if: always()
+        run: mv src/pages_api_disabled src/pages/api || true
       
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
