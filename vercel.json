@@ -1,12 +1,6 @@
 {
-  "buildCommand": "rm -rf .vercel && npm run build:vercel",
-  "outputDirectory": ".vercel/output",
+  "buildCommand": "npm run build:vercel",
   "framework": "astro",
   "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "github": {
-    "silent": true
-  }
+  "installCommand": "npm install"
 }
