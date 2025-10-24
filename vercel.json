@@ -1,5 +1,5 @@
 {
-  "buildCommand": "rm -rf .vercel/output/server && npm run build:vercel",
+  "buildCommand": "rm -rf .vercel && npm run build:vercel",
   "outputDirectory": ".vercel/output",
   "framework": "astro",
   "devCommand": "npm run dev",
